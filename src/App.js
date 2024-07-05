@@ -19,8 +19,8 @@ const App = () => {
         const data = await response.json();
 
         setMovies(data.Search);
-        console.log("APIKEY: ", apiKey);
-        console.log("ENV VAR:", process.env.REACT_APP_API_KEY);
+        //console.log("APIKEY: ", apiKey);
+        //console.log("ENV VAR:", process.env.REACT_APP_API_KEY);
     }
 
     useEffect(() => {
