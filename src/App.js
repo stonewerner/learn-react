@@ -1,23 +1,21 @@
 //import logo from './logo.svg';
 import './App.css';
-
-
-const Person = (props) => {
-  return (
-    <>
-    <h1>Name: {props.Name}</h1>
-    <h2>Last Name: {props.LastName}</h2>
-    <h2>Age: {props.Age}</h2>
-    </>
-  )
-}
+import {useState, useEffect} from 'react';
 
 function App() {
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    alert('you have changed the counter to ' + counter);
+
+  }, [counter]);
 
   return (
     <div className="App">
-      <Person Name={'Stone'} LastName={'Werner'} Age={23} />
-      <Person Name={'John'} LastName={'Doe'} Age={45} />
+      <button onClick={() => setCounter((prevCount) => prevCount-1)}>-</button>
+      <h1>{counter}</h1>
+      <button onClick={() => setCounter((prevCount) => prevCount+1)}>+</button>
+
     </div>
   );
 }
