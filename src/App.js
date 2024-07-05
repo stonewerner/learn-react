@@ -1,43 +1,74 @@
-//import logo from './logo.svg';
+import React from 'react';
+import {useEffect} from 'react';
+
 import './App.css';
-import {useState, useEffect} from 'react';
+import SearchIcon from './search.svg';
 
-function App() {
-  const [counter, setCounter] = useState(0);
+//movie api key 1fdba618
 
-  useEffect(() => {
-    alert('you have changed the counter to ' + counter);
+const API_URL = 'http://www.omdbapi.com?apikey=1fdba618';
 
-  }, [counter]);
+const movie1 = {
+    "Title": "Batman v Superman: Dawn of Justice",
+    "Year": "2016",
+    "imdbID": "tt2975590",
+    "Type": "movie",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BYThjYzcyYzItNTVjNy00NDk0LTgwMWQtYjMwNmNlNWJhMzMyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+}
 
-  return (
-    <div className="App">
-      <button onClick={() => setCounter((prevCount) => prevCount-1)}>-</button>
-      <h1>{counter}</h1>
-      <button onClick={() => setCounter((prevCount) => prevCount+1)}>+</button>
+const App = () => {
 
-    </div>
-  );
+    const searchMovies = async (title) => {
+        const response = await fetch(`${API_URL}&s=${title}`);
+        const data = await response.json();
+
+        console.log(data.Search);
+    }
+
+    useEffect(() => {
+        searchMovies('superman')
+
+    }, []);
+
+
+
+    return (
+        <div className="app">
+            <h1>MovieLand</h1>
+
+            <div className="search">
+                <input 
+                    placeholder="Search for movies"
+                    value="Superman"
+                    onChange={() => {}}
+                />
+                <img
+                    src={SearchIcon}
+                    alt="Search"
+                    onClick={() => {}}
+                />
+            </div>
+
+            <div className="container">
+                <div className="movie">
+                    <div>
+                        <p>{movie1.Year}</p>
+                    </div>
+                    <div>
+                        <img src={movie1.Poster !== 'N/A' ? movie1.Poster : 'https://via.placeholer.com/400'} alt={movie1.Title} />
+                    </div>
+
+                    <div>
+                        <span>{movie1.Type}</span>
+                        <h3>{movie1.Title}</h3>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    );
 }
 
 export default App;
-
-
-
-
-//deleted this from boilerplate code in <dic className="App">
-/*<header className="App-header">
-<img src={logo} className="App-logo" alt="logo" />
-<p>
-  Edit <code>src/App.js</code> and save to reload.
-</p>
-<a
-  className="App-link"
-  href="https://reactjs.org"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  Learn React
-</a>
-</header>
-*/
